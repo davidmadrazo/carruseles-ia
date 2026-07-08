@@ -28,7 +28,7 @@ Todo en tu ordenador. Sin suscripciones, sin Canva, sin marcas de agua.
 ### Opcion A: con git
 
 ```
-git clone https://github.com/TU_USUARIO/carruseles-ia.git
+git clone https://github.com/davidmadrazo/carruseles-ia.git
 cd carruseles-ia
 npm install
 ```
