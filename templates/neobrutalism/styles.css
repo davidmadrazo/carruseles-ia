@@ -1,0 +1,141 @@
+/* Neobrutalism: bordes negros gruesos, sombras duras sin blur, colores planos.
+   Prohibido: gradientes, blur, bordes finos, tipografia delgada. */
+
+.headline {
+  font-family: "Archivo Black", "Inter", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.08;
+  letter-spacing: -1px;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.slide--hook .headline {
+  font-size: 88px;
+}
+
+.slide--context .headline,
+.slide--content .headline,
+.slide--example .headline,
+.slide--reveal .headline {
+  font-size: 68px;
+}
+
+.slide--cta .headline {
+  font-size: 84px;
+}
+
+.body-text {
+  font-size: 40px;
+  line-height: 1.45;
+  font-weight: 400;
+  margin: 0;
+}
+
+.body-text strong {
+  font-weight: 700;
+}
+
+/* Palabra resaltada dentro de un headline */
+.marca {
+  background: var(--brand-primary);
+  color: var(--brand-on-primary);
+  padding: 0 16px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Etiqueta superior (tema del carrusel, "caso real", etc.) */
+.badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--brand-secondary);
+  border: 4px solid #000;
+  box-shadow: 6px 6px 0 #000;
+  padding: 14px 30px;
+  font-weight: 900;
+  font-size: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Tarjeta principal de contenido */
+.card {
+  background: #fff;
+  border: 5px solid #000;
+  box-shadow: 14px 14px 0 #000;
+  padding: 56px;
+}
+
+/* Numero grande para slides de contenido (01, 02, 03...) */
+.numero-paso {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  background: var(--brand-primary);
+  color: var(--brand-on-primary);
+  border: 5px solid #000;
+  box-shadow: 8px 8px 0 #000;
+  width: 130px;
+  height: 130px;
+  font-family: "Archivo Black", sans-serif;
+  font-size: 56px;
+}
+
+/* Cita o caso real (slide example) */
+.quote-card {
+  background: #fff;
+  border: 5px solid #000;
+  box-shadow: 14px 14px 0 #000;
+  padding: 56px;
+  font-size: 44px;
+  line-height: 1.4;
+  font-weight: 700;
+  font-style: normal;
+  margin: 0;
+}
+
+.quote-card footer {
+  margin-top: 32px;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+/* Boton CTA del ultimo slide */
+.cta-button {
+  display: inline-block;
+  align-self: flex-start;
+  background: #000;
+  color: #fff;
+  box-shadow: 12px 12px 0 var(--brand-primary);
+  padding: 36px 52px;
+  font-weight: 900;
+  font-size: 46px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Indicador de deslizar (todos los slides menos el ultimo) */
+.swipe-hint {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  padding: 14px 26px;
+  font-weight: 900;
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Separadores de espacio vertical entre bloques */
+.gap-md {
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.gap-lg {
+  height: 72px;
+  flex-shrink: 0;
+}

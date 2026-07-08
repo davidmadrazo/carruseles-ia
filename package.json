@@ -1,0 +1,13 @@
+{
+  "name": "carruseles-ia",
+  "version": "0.1.0",
+  "description": "Genera carruseles virales de Instagram con Claude Code: guion, diseño y PNGs listos para publicar",
+  "type": "module",
+  "scripts": {
+    "render": "node scripts/render.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}

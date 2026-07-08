@@ -1,0 +1,77 @@
+/* Contrato del lienzo: todo slide es 1080x1350 (4:5 Instagram) exactos */
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  src: url("../assets/fonts/inter-variable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Archivo Black";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/archivo-black-400.woff2") format("woff2");
+}
+
+/* Fallbacks por si el carrusel no genera brand.css */
+:root {
+  --brand-primary: #ffe500;
+  --brand-secondary: #ff6b9c;
+  --brand-bg: #f5f0e8;
+  --brand-text: #111111;
+  --brand-on-primary: #111111;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 1080px;
+  height: 1350px;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--brand-text);
+  background: var(--brand-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.slide {
+  position: relative;
+  width: 1080px;
+  height: 1350px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+}
+
+.slide * {
+  box-sizing: border-box;
+}
+
+/* Espaciador flexible: colocar antes y despues del bloque principal para centrarlo */
+.spacer {
+  flex: 1 0 0;
+}
+
+/* Pie de slide: handle a la izquierda, numero o hint a la derecha */
+.slide-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-handle {
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.slide-number {
+  font-weight: 700;
+  font-size: 28px;
+}
