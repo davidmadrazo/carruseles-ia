@@ -1,0 +1,243 @@
+/* Gradient mesh: fondo oscuro con auroras de color derivadas de la marca.
+   Estilo Stripe/Linear: mesh de radial-gradients, glassmorphism, pills,
+   texto degradado. Prohibido: bordes duros, sombras sin blur, colores planos. */
+
+.slide {
+  /* tonos derivados de la marca via color-mix */
+  --gm-ink: #ffffff;
+  --gm-ink-soft: rgba(255, 255, 255, 0.86);
+  --gm-primary-bright: color-mix(in oklab, var(--brand-primary) 62%, white);
+  --gm-secondary-bright: color-mix(in oklab, var(--brand-secondary) 72%, white);
+  /* mezcla en oklch: conserva el croma y da un intermedio vivo, no gris */
+  --gm-blend: color-mix(in oklch, var(--brand-primary) 52%, var(--brand-secondary));
+  --gm-base: color-mix(in oklab, var(--brand-primary) 12%, #05040c);
+
+  color: var(--gm-ink);
+  overflow: hidden;
+  background-color: var(--gm-base);
+  background-image:
+    radial-gradient(at 12% -8%, color-mix(in srgb, var(--brand-primary) 52%, transparent) 0px, transparent 52%),
+    radial-gradient(at 100% 8%, color-mix(in srgb, var(--brand-secondary) 24%, transparent) 0px, transparent 44%),
+    radial-gradient(at 108% 92%, color-mix(in srgb, var(--gm-blend) 38%, transparent) 0px, transparent 55%),
+    radial-gradient(at -8% 104%, color-mix(in srgb, var(--brand-primary) 36%, transparent) 0px, transparent 50%);
+}
+
+/* blob de luz difusa; decorativo, nunca va en el html */
+.slide::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  top: -160px;
+  right: -140px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--gm-primary-bright) 50%, transparent) 0%, transparent 70%);
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.slide--content::before,
+.slide--example::before,
+.slide--reveal::before {
+  top: 30%;
+  right: auto;
+  left: -200px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--gm-blend) 50%, transparent) 0%, transparent 70%);
+}
+
+.slide--cta::before {
+  top: auto;
+  bottom: -280px;
+  right: 50%;
+  transform: translateX(50%);
+  width: 760px;
+  height: 560px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--gm-secondary-bright) 30%, transparent) 0%, transparent 68%);
+  filter: blur(90px);
+}
+
+/* rejilla sutil + vineta para asentar el texto */
+.slide::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.38) 100%),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 72px 72px, 72px 72px;
+  pointer-events: none;
+}
+
+/* el contenido siempre por encima de los pseudo-elementos decorativos */
+.slide > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Inter 900 en vez de Archivo Black: encaja con el estilo tech/aspiracional */
+.headline {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  line-height: 1.06;
+  letter-spacing: -2px;
+  margin: 0;
+  text-wrap: balance;
+  text-shadow: 0 4px 44px rgba(0, 0, 0, 0.45);
+}
+
+.slide--hook .headline {
+  font-size: 88px;
+  letter-spacing: -3px;
+}
+
+.slide--context .headline,
+.slide--content .headline,
+.slide--example .headline,
+.slide--reveal .headline {
+  font-size: 68px;
+}
+
+.slide--cta .headline {
+  font-size: 84px;
+  letter-spacing: -3px;
+}
+
+.body-text {
+  font-size: 40px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--gm-ink-soft);
+  margin: 0;
+}
+
+.body-text strong {
+  font-weight: 800;
+  color: var(--gm-ink);
+}
+
+/* Palabra resaltada del headline: texto degradado primary -> secondary */
+.marca {
+  /* interpolacion en oklch: evita la zona gris lavada del medio */
+  background: linear-gradient(100deg in oklch, var(--gm-primary-bright), var(--gm-secondary-bright));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+
+/* Etiqueta superior: pill glassy tintada con la marca */
+.badge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 16px 34px;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--gm-primary-bright) 45%, transparent);
+  background: color-mix(in srgb, var(--brand-primary) 22%, transparent);
+  color: var(--gm-ink);
+  font-weight: 700;
+  font-size: 28px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+/* Tarjeta principal: cristal esmerilado sobre el mesh */
+.card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+  border-radius: 32px;
+  padding: 56px;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+/* Numero grande para slides de contenido (01, 02, 03...) */
+.numero-paso {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand-primary), var(--gm-blend));
+  color: var(--brand-on-primary);
+  font-weight: 900;
+  font-size: 54px;
+  letter-spacing: -1px;
+  box-shadow: 0 0 70px color-mix(in srgb, var(--brand-primary) 55%, transparent);
+}
+
+/* Cita o caso real (slide example) */
+.quote-card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+  border-radius: 32px;
+  padding: 56px;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  font-size: 44px;
+  line-height: 1.4;
+  font-weight: 600;
+  font-style: normal;
+  margin: 0;
+  color: var(--gm-ink);
+}
+
+.quote-card footer {
+  margin-top: 32px;
+  font-size: 30px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Boton CTA del ultimo slide: pill con degradado y glow */
+.cta-button {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 36px 64px;
+  border-radius: 999px;
+  /* el final del degradado se oscurece para no perder contraste con el texto */
+  background: linear-gradient(120deg, var(--brand-primary), color-mix(in oklab, var(--gm-blend) 72%, black));
+  color: var(--brand-on-primary);
+  font-weight: 800;
+  font-size: 46px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 24px 90px color-mix(in srgb, var(--brand-primary) 60%, transparent);
+}
+
+/* Indicador de deslizar (todos los slides menos el ultimo) */
+.swipe-hint {
+  display: inline-block;
+  padding: 14px 30px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  color: var(--gm-ink);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 1px;
+}
+
+.footer-handle {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.slide-number {
+  color: rgba(255, 255, 255, 0.6);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Separadores de espacio vertical entre bloques */
+.gap-md {
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.gap-lg {
+  height: 72px;
+  flex-shrink: 0;
+}

@@ -1,0 +1,182 @@
+/* Neumorphism (soft UI): superficies extruidas del fondo, doble sombra suave
+   (clara arriba-izquierda, oscura abajo-derecha), esquinas muy redondeadas.
+   Prohibido: bordes duros, sombras sin blur, texto gris de bajo contraste. */
+
+:root {
+  /* sombras y superficie derivadas del tono de fondo de la marca */
+  --neu-dark: color-mix(in srgb, var(--brand-bg) 78%, #000000);
+  --neu-light: color-mix(in srgb, var(--brand-bg) 20%, #ffffff);
+  --neu-surface: color-mix(in srgb, var(--brand-bg) 88%, #ffffff);
+  --neu-raised: 16px 16px 36px var(--neu-dark), -16px -16px 36px var(--neu-light);
+  --neu-raised-sm: 7px 7px 16px var(--neu-dark), -7px -7px 16px var(--neu-light);
+  --neu-inset: inset 9px 9px 20px var(--neu-dark), inset -9px -9px 20px var(--neu-light);
+  --neu-inset-sm: inset 4px 4px 9px var(--neu-dark), inset -4px -4px 9px var(--neu-light);
+}
+
+/* luz ambiental desde arriba-izquierda, coherente con las sombras */
+.slide {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--brand-bg) 93%, #ffffff),
+    var(--brand-bg) 55%,
+    color-mix(in srgb, var(--brand-bg) 95%, #000000)
+  );
+}
+
+/* Inter 900 en vez de Archivo Black: formas mas redondas y suaves, pega con soft UI */
+.headline {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -2px;
+  margin: 0;
+  color: var(--brand-text);
+  text-wrap: balance;
+}
+
+.slide--hook .headline {
+  font-size: 88px;
+}
+
+.slide--context .headline,
+.slide--content .headline,
+.slide--example .headline,
+.slide--reveal .headline {
+  font-size: 68px;
+}
+
+.slide--cta .headline {
+  font-size: 84px;
+}
+
+.body-text {
+  font-size: 40px;
+  line-height: 1.5;
+  font-weight: 500;
+  margin: 0;
+  color: var(--brand-text);
+}
+
+.body-text strong {
+  font-weight: 800;
+}
+
+/* Palabra resaltada dentro de un headline: acento de color plano, sin caja */
+.marca {
+  color: var(--brand-primary);
+}
+
+/* Etiqueta superior: pastilla elevada del mismo tono que el fondo */
+.badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--neu-surface);
+  color: var(--brand-primary);
+  border-radius: 999px;
+  box-shadow: var(--neu-raised-sm);
+  padding: 18px 40px;
+  font-weight: 800;
+  font-size: 28px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Tarjeta principal: superficie extruida del fondo */
+.card {
+  background: var(--neu-surface);
+  border-radius: 44px;
+  box-shadow: var(--neu-raised);
+  padding: 56px 60px;
+}
+
+/* Numero de paso: disco de color elevado */
+.numero-paso {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  background: var(--brand-primary);
+  color: var(--brand-on-primary);
+  border-radius: 50%;
+  box-shadow: var(--neu-raised);
+  width: 136px;
+  height: 136px;
+  font-weight: 900;
+  font-size: 56px;
+  letter-spacing: -1px;
+}
+
+/* Cita o caso real: superficie hundida, como grabada en el fondo */
+.quote-card {
+  background: var(--brand-bg);
+  border-radius: 44px;
+  box-shadow: var(--neu-inset);
+  padding: 60px 64px;
+  font-size: 44px;
+  line-height: 1.42;
+  font-weight: 700;
+  font-style: normal;
+  margin: 0;
+  color: var(--brand-text);
+}
+
+.quote-card footer {
+  margin-top: 32px;
+  font-size: 30px;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--brand-text) 72%, var(--brand-bg));
+}
+
+/* Boton CTA: pastilla de color elevada con sombra tenida del primario */
+.cta-button {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--brand-primary);
+  color: var(--brand-on-primary);
+  border-radius: 999px;
+  box-shadow:
+    16px 16px 36px color-mix(in srgb, var(--brand-primary) 28%, var(--neu-dark)),
+    -16px -16px 36px var(--neu-light);
+  padding: 36px 60px;
+  font-weight: 800;
+  font-size: 46px;
+  letter-spacing: 0.5px;
+}
+
+/* Indicador de deslizar: pastilla pequena elevada */
+.swipe-hint {
+  display: inline-block;
+  background: var(--neu-surface);
+  color: var(--brand-primary);
+  border-radius: 999px;
+  box-shadow: var(--neu-raised-sm);
+  padding: 16px 32px;
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: 1px;
+}
+
+/* Footer: handle atenuado y numero de slide en pastilla hundida */
+.footer-handle {
+  color: color-mix(in srgb, var(--brand-text) 78%, var(--brand-bg));
+}
+
+.slide-number {
+  display: inline-block;
+  background: var(--brand-bg);
+  border-radius: 999px;
+  box-shadow: var(--neu-inset-sm);
+  padding: 14px 30px;
+  color: color-mix(in srgb, var(--brand-text) 78%, var(--brand-bg));
+}
+
+/* Separadores de espacio vertical entre bloques */
+.gap-md {
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.gap-lg {
+  height: 72px;
+  flex-shrink: 0;
+}

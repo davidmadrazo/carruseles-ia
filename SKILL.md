@@ -153,8 +153,18 @@ Checklist de validacion del guion (pasarla antes de escribir HTML):
 
 ## Paso 2: elegir design system
 
-Por ahora disponible: `neobrutalism` (opiniones fuertes, contraste, contenido directo).
-Usar `estilo_por_defecto` de brand.json salvo que el usuario pida otra cosa.
+| Estilo | Cuando usarlo |
+|---|---|
+| `neobrutalism` | Opiniones fuertes, contraste, contenido directo |
+| `liquid-glass` | Producto, tech premium, dark mode |
+| `gradient-mesh` | Vision, futuro, contenido aspiracional |
+| `bento-grid` | Listas, comparativas, features |
+| `neumorphism` | Calma, procesos, bienestar |
+
+Usar `estilo_por_defecto` de brand.json salvo que el usuario pida otra cosa o el tema
+encaje claramente mejor con otro estilo (proponerlo en ese caso). Cada estilo tiene su
+`layouts.md` con snippets propios: leer SIEMPRE el del estilo elegido, no asumir que
+son iguales (la tipografia y la estructura cambian entre sistemas).
 
 ## Paso 3: construir los HTML
 

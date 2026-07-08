@@ -1,0 +1,266 @@
+/* Liquid glass: paneles translucidos con backdrop blur, bordes claros sutiles,
+   fondo oscuro con blobs de color de marca. Vibe producto/tech premium.
+   Prohibido: bordes negros duros, sombras sin blur, uppercase agresivo. */
+
+/* Lienzo oscuro con tintes de marca; isolation para que los blobs
+   (z-index negativo) queden sobre el fondo pero bajo el contenido */
+.slide {
+  isolation: isolate;
+  color: #f4f6fb;
+  background:
+    radial-gradient(1100px 900px at 88% -8%, color-mix(in srgb, var(--brand-secondary) 20%, transparent), transparent 65%),
+    radial-gradient(1000px 850px at -12% 30%, color-mix(in srgb, var(--brand-primary) 26%, transparent), transparent 62%),
+    linear-gradient(160deg, #101020 0%, #0a0a14 55%, #06060c 100%);
+  overflow: hidden;
+}
+
+/* Blobs decorativos detras del glass; el HTML no cambia */
+.slide::before,
+.slide::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+.slide::before {
+  width: 760px;
+  height: 760px;
+  top: -240px;
+  right: -220px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--brand-primary) 72%, transparent) 0%, transparent 70%);
+}
+
+.slide::after {
+  width: 680px;
+  height: 680px;
+  bottom: -260px;
+  left: -220px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--brand-secondary) 55%, transparent) 0%, transparent 70%);
+}
+
+/* Variacion por rol para que el carrusel no sea monotono.
+   En roles con card el blob primario baja a media altura para que
+   el panel glass tenga color que difuminar detras */
+.slide--context::before,
+.slide--content::before,
+.slide--example::before,
+.slide--reveal::before {
+  top: 300px;
+  right: -300px;
+}
+
+.slide--hook::before {
+  right: auto;
+  left: -240px;
+  top: -200px;
+}
+
+.slide--hook::after {
+  left: auto;
+  right: -200px;
+  bottom: -240px;
+}
+
+.slide--cta::before {
+  top: auto;
+  bottom: -280px;
+  right: -180px;
+}
+
+.slide--cta::after {
+  bottom: auto;
+  top: -260px;
+  left: -200px;
+}
+
+.headline {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -2px;
+  margin: 0;
+  color: #ffffff;
+  text-wrap: balance;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35);
+}
+
+.slide--hook .headline {
+  font-size: 88px;
+  letter-spacing: -2.5px;
+}
+
+.slide--context .headline,
+.slide--content .headline,
+.slide--example .headline,
+.slide--reveal .headline {
+  font-size: 66px;
+}
+
+.slide--cta .headline {
+  font-size: 80px;
+}
+
+.body-text {
+  font-size: 40px;
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.body-text strong {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Palabra resaltada del headline: texto degradado con colores de marca
+   aclarados para mantener contraste sobre fondo oscuro */
+.marca {
+  background: linear-gradient(100deg,
+    color-mix(in srgb, var(--brand-primary) 45%, #ffffff),
+    color-mix(in srgb, var(--brand-secondary) 60%, #ffffff));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+
+/* Etiqueta superior: pildora de vidrio con punto de marca */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  padding: 16px 36px;
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.badge::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  box-shadow: 0 0 16px color-mix(in srgb, var(--brand-primary) 70%, transparent);
+}
+
+/* Panel de vidrio principal */
+.card {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06));
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 36px;
+  padding: 56px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Numero de paso: baldosa de vidrio con tinte de marca y glow */
+.numero-paso {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  width: 130px;
+  height: 130px;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--brand-primary) 55%, transparent),
+    color-mix(in srgb, var(--brand-secondary) 40%, transparent));
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 32px;
+  font-weight: 900;
+  font-size: 54px;
+  letter-spacing: -1px;
+  color: #ffffff;
+  box-shadow:
+    0 16px 48px color-mix(in srgb, var(--brand-primary) 40%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Cita o caso real */
+.quote-card {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06));
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 36px;
+  padding: 56px;
+  font-size: 44px;
+  line-height: 1.45;
+  font-weight: 600;
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.quote-card footer {
+  margin-top: 32px;
+  font-size: 30px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Boton CTA: degradado solido de marca con glow, unico elemento opaco */
+.cta-button {
+  display: inline-block;
+  align-self: flex-start;
+  background: linear-gradient(120deg, var(--brand-primary), var(--brand-secondary));
+  color: var(--brand-on-primary);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 28px;
+  padding: 34px 56px;
+  font-weight: 800;
+  font-size: 44px;
+  letter-spacing: 0.5px;
+  box-shadow:
+    0 20px 60px color-mix(in srgb, var(--brand-primary) 50%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Indicador de deslizar: pildora glass discreta */
+.swipe-hint {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  padding: 14px 30px;
+  font-weight: 600;
+  font-size: 26px;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-handle {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.slide-number {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.gap-md {
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.gap-lg {
+  height: 72px;
+  flex-shrink: 0;
+}
