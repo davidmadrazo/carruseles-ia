@@ -33,9 +33,11 @@ const executablePath = findBrowser();
 mkdirSync(outDir, { recursive: true });
 
 console.log(`Navegador: ${executablePath}`);
-console.log(`Renderizando ${files.length} slides a 1080x1350 (@2x)...`);
+console.log(`Renderizando ${files.length} slides (@2x, lienzo segun el CSS de cada slide)...`);
 
-const browser = await puppeteer.launch({ executablePath, headless: true });
+// --no-sandbox: necesario en Linux headless (VPS/root/contenedor); inocuo en Windows/Mac.
+const launchArgs = process.platform === "linux" ? ["--no-sandbox", "--disable-setuid-sandbox"] : [];
+const browser = await puppeteer.launch({ executablePath, headless: true, args: launchArgs });
 
 try {
   const page = await browser.newPage();
@@ -44,10 +46,23 @@ try {
   for (const file of files) {
     const url = pathToFileURL(join(slidesDir, file)).href;
     await page.goto(url, { waitUntil: "networkidle0" });
+
+    // El lienzo lo define el CSS del slide (post 1080x1350, historia 1080x1920):
+    // se mide el body y se ajusta el viewport para que el PNG salga exacto.
+    const { w, h } = await page.evaluate(() => ({
+      w: document.body.offsetWidth,
+      h: document.body.offsetHeight,
+    }));
+    const vp = page.viewport();
+    if (vp.width !== w || vp.height !== h) {
+      await page.setViewport({ width: w, height: h, deviceScaleFactor: 2 });
+      await page.reload({ waitUntil: "networkidle0" });
+    }
+
     await page.evaluate(() => document.fonts.ready);
     const outPath = join(outDir, file.replace(".html", ".png"));
     await page.screenshot({ path: outPath });
-    console.log(`  ${file} -> png/${file.replace(".html", ".png")}`);
+    console.log(`  ${file} (${w}x${h}) -> png/${file.replace(".html", ".png")}`);
   }
 } finally {
   await browser.close();

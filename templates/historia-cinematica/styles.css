@@ -1,0 +1,410 @@
+/* Historia cinematica: secuencia de stories premium sobre fondo oscuro full-bleed.
+   Tipografia blanca sobre foto (o degradado casi negro con tinte de marca),
+   una palabra enorme (.palabra-golpe) lleva el peso de cada frame.
+   Prohibido: cajas opacas, bordes duros, fondos claros. */
+
+.slide {
+  color: #fff;
+  /* isolate crea el stacking context: sin el, la foto .bg-image (z-index -1)
+     pintaria DETRAS del propio fondo opaco del slide y quedaria invisible */
+  isolation: isolate;
+  background:
+    radial-gradient(
+      140% 65% at 85% -12%,
+      color-mix(in oklch, var(--brand-primary) 30%, #07070b) 0%,
+      rgba(0, 0, 0, 0) 60%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--brand-primary) 14%, #0a0a10) 0%,
+      #070709 55%,
+      #050506 100%
+    );
+}
+
+/* Capa de foto/imagen IA opcional, full-bleed detras del texto:
+   <img class="bg-image" src="..."> o
+   <div class="bg-image" style="background-image: url(...)"></div> */
+.bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+/* Overlay cinematografico SIEMPRE presente (con o sin foto):
+   negro ~85% abajo -> ~35% arriba para garantizar contraste del texto. */
+.slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.5) 45%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+/* ---- Tipografia ---- */
+
+.headline {
+  font-weight: 800;
+  font-size: 68px;
+  line-height: 1.18;
+  letter-spacing: -1px;
+  margin: 0;
+  text-wrap: balance;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* La clase estrella: una palabra enorme en display sobre el fondo oscuro.
+   Puede ocupar 2 lineas partiendo con guion (AUDI-<br>TORIA). */
+.palabra-golpe {
+  font-family: "Archivo Black", "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 200px;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -4px;
+  color: var(--brand-primary);
+  margin: 20px 0;
+  text-shadow:
+    0 6px 50px rgba(0, 0, 0, 0.45),
+    0 0 110px color-mix(in srgb, var(--brand-primary) 40%, transparent);
+}
+
+/* Palabras de 4 letras o menos */
+.palabra-golpe--xl {
+  font-size: 240px;
+}
+
+/* Palabras largas partidas en 2 lineas */
+.palabra-golpe--larga {
+  font-size: 180px;
+  letter-spacing: -3px;
+}
+
+.body-text {
+  font-size: 44px;
+  line-height: 1.45;
+  font-weight: 500;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 860px;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.5);
+}
+
+.body-text strong {
+  font-weight: 800;
+  color: #fff;
+}
+
+/* Resaltado tipo pildora para 1-2 palabras dentro de una frase */
+.marca {
+  background: var(--brand-primary);
+  color: var(--brand-on-primary);
+  padding: 2px 24px 6px;
+  border-radius: 999px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* ---- Cabecera y pie ---- */
+
+.historia-label {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #fff;
+}
+
+.historia-label::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  /* primario, no secundario: el secundario puede ser oscuro (paleta feed) e invisible sobre el fondo */
+  background: var(--brand-primary);
+  flex-shrink: 0;
+}
+
+.footer-handle {
+  opacity: 0.7;
+  letter-spacing: 1px;
+}
+
+.siguiente-hint,
+.swipe-hint {
+  color: #fff;
+  opacity: 0.9;
+}
+
+.swipe-hint {
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ---- Bloques ---- */
+
+.badge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 14px 34px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 28px;
+  padding: 48px 56px;
+}
+
+/* Cifra gigante para stats y pasos (proof) */
+.numero-paso {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: "Archivo Black", "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 150px;
+  line-height: 1;
+  color: var(--brand-primary);
+  text-shadow:
+    0 6px 50px rgba(0, 0, 0, 0.45),
+    0 0 90px color-mix(in srgb, var(--brand-primary) 35%, transparent);
+}
+
+/* Cita/testimonio sin caja opaca: cursiva + barra lateral fina */
+.quote-card {
+  margin: 0;
+  padding: 8px 0 8px 48px;
+  border-left: 6px solid var(--brand-primary);
+  font-size: 52px;
+  line-height: 1.35;
+  font-weight: 600;
+  font-style: italic;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.quote-card footer {
+  margin-top: 36px;
+  font-size: 30px;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.cta-button {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--brand-primary);
+  color: var(--brand-on-primary);
+  padding: 30px 60px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 42px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 24px 90px color-mix(in srgb, var(--brand-primary) 55%, transparent);
+}
+
+.gap-md {
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.gap-lg {
+  height: 88px;
+  flex-shrink: 0;
+}
+
+/* ---- Variantes por rol de historia ---- */
+
+.slide--hook .headline,
+.slide--cta .headline {
+  font-size: 72px;
+}
+
+.slide--problema .headline,
+.slide--insight .headline,
+.slide--solucion .headline,
+.slide--proof .headline,
+.slide--social-proof .headline {
+  font-size: 64px;
+}
+
+/* problema: el frame mas oscuro de la secuencia */
+.slide--problema::after {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.65) 45%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+}
+
+/* solucion y cta: el halo de marca gana presencia (el giro de la secuencia) */
+.slide--solucion,
+.slide--cta {
+  background:
+    radial-gradient(
+      140% 70% at 50% -15%,
+      color-mix(in oklch, var(--brand-primary) 42%, #07070b) 0%,
+      rgba(0, 0, 0, 0) 62%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--brand-primary) 20%, #0a0a10) 0%,
+      #070709 55%,
+      #050506 100%
+    );
+}
+
+/* punchline: frase corta centrada, maximo aire */
+.slide--punchline {
+  align-items: center;
+  text-align: center;
+}
+
+.slide--punchline .headline {
+  font-size: 76px;
+}
+
+.slide--punchline .badge,
+.slide--punchline .cta-button,
+.slide--punchline .numero-paso {
+  align-self: center;
+}
+
+/* ---- v2: dispositivos psicologicos de retencion ---- */
+
+/* Barra de progreso de la serie (impulso de completar): un span por historia,
+   .visto las pasadas, .actual la presente */
+.progreso {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.progreso span {
+  height: 6px;
+  flex: 1;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.16);
+}
+.progreso span.visto {
+  background: rgba(255, 255, 255, 0.42);
+}
+.progreso span.actual {
+  background: var(--brand-primary);
+  box-shadow: 0 0 18px color-mix(in oklch, var(--brand-primary) 70%, transparent);
+}
+
+/* Cifra fantasma subliminal detras del contenido (el numero que NO tienes) */
+.dato-fantasma {
+  position: absolute;
+  right: -30px;
+  top: 44%;
+  transform: translateY(-50%) rotate(-4deg);
+  font-family: "Archivo Black", sans-serif;
+  font-size: 620px;
+  line-height: 1;
+  letter-spacing: -12px;
+  color: rgba(255, 255, 255, 0.055);
+  z-index: -1;
+  user-select: none;
+}
+
+/* Frame FLASH: rompe el patron oscuro UNA vez por secuencia (patron-interrupt).
+   Combinar: class="slide slide--insight slide--flash" */
+.slide--flash {
+  background: var(--brand-bg);
+  color: var(--brand-text);
+}
+.slide--flash::after {
+  background: none;
+}
+.slide--flash .headline,
+.slide--flash .body-text,
+.slide--flash .footer-handle,
+.slide--flash .siguiente-hint {
+  color: var(--brand-text);
+  text-shadow: none;
+}
+.slide--flash .palabra-golpe {
+  color: var(--brand-primary);
+  text-shadow: none;
+}
+.slide--flash .historia-label {
+  color: rgba(0, 0, 0, 0.55);
+}
+.slide--flash .progreso span {
+  background: rgba(0, 0, 0, 0.12);
+}
+.slide--flash .progreso span.visto {
+  background: rgba(0, 0, 0, 0.32);
+}
+.slide--flash .progreso span.actual {
+  background: var(--brand-primary);
+  box-shadow: none;
+}
+
+/* Palabra-golpe: variantes de energia */
+.palabra-golpe--contorno {
+  color: transparent;
+  -webkit-text-stroke: 5px var(--brand-primary);
+}
+.palabra-golpe--inclinada {
+  transform: rotate(-2deg);
+}
+
+/* Teaser de borde: microcopy que anticipa el siguiente tap */
+.teaser {
+  align-self: flex-end;
+  text-align: right;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+}
+.slide--flash .teaser {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+/* Ticket del CTA: la palabra clave como entrada perforada (posesion) */
+.ticket {
+  align-self: stretch;
+  text-align: center;
+  padding: 48px 40px 56px;
+  border: 3px dashed rgba(255, 255, 255, 0.45);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.06);
+}
+.ticket .palabra-golpe {
+  margin-top: 12px;
+}
+.ticket-micro {
+  display: block;
+  margin-top: 8px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+}

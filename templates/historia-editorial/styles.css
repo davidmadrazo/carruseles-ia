@@ -1,0 +1,346 @@
+/* Historia-editorial: revista editorial elegante sobre papel crema, en 9:16.
+   Historias editoriales elegantes: frases narrativas en serif
+   italica minuscula (Playfair Display) como portada de revista poetica, una
+   palabra-golpe enorme en serif 900 upright, pildoras negras como etiquetas,
+   bandas terracota de color plano y fotos en blanco y negro con mascara de
+   arco. Papel crema plano (--brand-bg), luz y aire. Prohibido: fondos oscuros,
+   sombras, glows, gradientes, esquinas redondeadas fuera del arco. */
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 700 900;
+  src: url("../../assets/fonts/playfair-display-700-900.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 700 900;
+  src: url("../../assets/fonts/playfair-display-italic-700-900.woff2") format("woff2");
+}
+
+:root {
+  --he-ink: var(--brand-text);
+  --he-ink-muted: color-mix(in srgb, var(--brand-text) 60%, var(--brand-bg));
+  --he-hairline: color-mix(in srgb, var(--brand-text) 26%, var(--brand-bg));
+}
+
+/* Papel crema plano: el fondo de marca tal cual, sin oscurecer ni texturizar */
+.slide {
+  background: var(--brand-bg);
+  color: var(--he-ink);
+}
+
+/* La portada (hook) lleva la franja lateral terracota del feed: banda de color
+   plano pegada al borde izquierdo, a todo lo alto del lienzo */
+.slide--hook::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 26px;
+  background: var(--brand-primary);
+}
+
+/* El problema lleva el ornamento de linea vertical discontinua en el margen */
+.slide--problema::before {
+  content: "";
+  position: absolute;
+  left: 36px;
+  top: 300px;
+  bottom: 360px;
+  border-left: 3px dashed var(--he-ink-muted);
+}
+
+/* Cabecera: pildora negra tipo etiqueta de episodio del feed */
+.historia-label {
+  align-self: flex-start;
+  background: var(--brand-secondary);
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  padding: 20px 36px 18px;
+  opacity: 1;
+}
+
+/* Linea de metadatos letterspaced bajo la etiqueta: "SERIE · AUDITORIA · 01/08" */
+.metadatos {
+  margin-top: 30px;
+  font-weight: 600;
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  color: var(--he-ink);
+}
+
+/* Frase narrativa: serif italica en minuscula, como titular de revista poetica */
+.headline {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 750;
+  text-transform: lowercase;
+  font-size: 78px;
+  line-height: 1.16;
+  letter-spacing: 0;
+  margin: 0;
+  color: var(--he-ink);
+  text-wrap: balance;
+}
+
+.slide--hook .headline {
+  font-size: 86px;
+}
+
+/* Siglas dentro de una frase italica (DM, IA, CRM): sobreviven a la minuscula */
+.headline .siglas {
+  text-transform: uppercase;
+}
+
+/* La palabra-golpe: UNA palabra o cifra en serif 900 upright, casi negra.
+   Tamanos: 190px por defecto (hasta ~6 letras), --xl 210px (4 letras o menos),
+   --larga 130px (7+ letras). Nunca dejar que desborde: bajar de modificador
+   o partir con guion + <br> */
+.palabra-golpe {
+  align-self: flex-start;
+  font-family: "Playfair Display", serif;
+  font-style: normal;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 190px;
+  line-height: 1;
+  letter-spacing: 2px;
+  margin: 24px 0;
+  color: var(--he-ink);
+}
+
+.palabra-golpe--xl {
+  font-size: 210px;
+}
+
+.palabra-golpe--larga {
+  font-size: 130px;
+}
+
+/* Variante sobre bloque terracota: banda de color plano a sangre completa
+   (de borde a borde del lienzo), palabra en blanco de marca */
+.palabra-golpe--bloque {
+  align-self: stretch;
+  margin-left: -80px;
+  margin-right: -80px;
+  padding: 64px 60px 72px;
+  background: var(--brand-primary);
+  color: var(--brand-on-primary);
+  text-align: center;
+}
+
+/* En el insight, la palabra-golpe lleva subrayado grueso terracota */
+.slide--insight .palabra-golpe {
+  border-bottom: 12px solid var(--brand-primary);
+  padding-bottom: 22px;
+}
+
+.body-text {
+  font-size: 40px;
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 0;
+  color: var(--he-ink);
+}
+
+.body-text strong {
+  font-weight: 700;
+}
+
+/* Enfasis por defecto: subrayado fino terracota (nunca caja de color).
+   Para etiquetas con pildora negra usar .badge, no .marca */
+.marca {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--brand-primary);
+  text-decoration-thickness: 0.09em;
+  text-underline-offset: 0.16em;
+}
+
+/* Badge: misma pildora negra que la cabecera, para etiquetar bloques */
+.badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--brand-secondary);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 25px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  padding: 20px 36px 18px;
+}
+
+/* Pasaje destacado: parrafo con la linea vertical discontinua como ornamento */
+.card {
+  border-left: 3px dashed var(--he-ink-muted);
+  padding: 12px 0 12px 44px;
+  background: transparent;
+}
+
+/* Cifra editorial gigante: numeral serif terracota con filete hasta el margen */
+.numero-paso {
+  display: flex;
+  align-items: center;
+  gap: 44px;
+  width: 100%;
+  font-family: "Playfair Display", serif;
+  font-weight: 900;
+  font-size: 170px;
+  line-height: 1;
+  color: var(--brand-primary);
+}
+
+.numero-paso::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--he-hairline);
+}
+
+/* Cita editorial: serif italica con comillas gigantes terracota */
+.quote-card {
+  margin: 0;
+  padding: 0;
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 58px;
+  line-height: 1.35;
+  color: var(--he-ink);
+}
+
+.quote-card::before {
+  content: "\201C";
+  display: block;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 170px;
+  line-height: 0.55;
+  height: 84px;
+  color: var(--brand-primary);
+}
+
+.quote-card footer {
+  margin-top: 48px;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 27px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--he-ink-muted);
+}
+
+.quote-card footer::before {
+  content: "\2014\00A0";
+  color: var(--brand-primary);
+}
+
+/* Boton CTA: bloque terracota de color plano, esquinas rectas de imprenta */
+.cta-button {
+  display: inline-block;
+  align-self: center;
+  background: var(--brand-primary);
+  color: var(--brand-on-primary);
+  padding: 34px 64px;
+  font-weight: 700;
+  font-size: 40px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+/* Foto con mascara de arco: ventana editorial, SIEMPRE en blanco y negro.
+   Acepta <img> dentro o background-image en el propio contenedor */
+.foto-arco {
+  align-self: center;
+  width: 740px;
+  height: 880px;
+  border-radius: 370px 370px 0 0;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(1) contrast(1.05);
+}
+
+.foto-arco img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Punchline y CTA: composicion centrada en el eje, tipo colofon */
+.slide--punchline,
+.slide--cta {
+  text-align: center;
+  align-items: center;
+}
+
+.slide--punchline .palabra-golpe,
+.slide--cta .palabra-golpe {
+  align-self: center;
+}
+
+.slide--cta .palabra-golpe--bloque {
+  align-self: stretch;
+}
+
+.slide--punchline .slide-footer,
+.slide--cta .slide-footer {
+  align-self: stretch;
+}
+
+/* Pie: filete fino + handle y siguiente en Inter letterspaced discretos */
+.slide-footer {
+  border-top: 1px solid var(--he-hairline);
+  padding-top: 30px;
+}
+
+.footer-handle {
+  font-weight: 600;
+  font-size: 25px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--he-ink-muted);
+}
+
+.siguiente-hint {
+  font-weight: 700;
+  font-size: 25px;
+  letter-spacing: 4px;
+  color: var(--brand-primary);
+}
+
+/* Contrato de publicaciones: mismo tratamiento que siguiente-hint */
+.swipe-hint {
+  font-weight: 700;
+  font-size: 25px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--brand-primary);
+}
+
+.slide-number {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: 2px;
+  color: var(--he-ink);
+}
+
+/* Separadores verticales (lienzo alto: mas aire que en publicacion) */
+.gap-md {
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.gap-lg {
+  height: 96px;
+  flex-shrink: 0;
+}

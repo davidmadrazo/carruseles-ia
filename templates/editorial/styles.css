@@ -1,0 +1,388 @@
+/* Editorial: revista impresa premium. Serif display de alto contraste (Playfair
+   Display) sobre papel calido, filetes horizontales como separadores, folios de
+   revista y acentos minimos del color primario. Aire y jerarquia por encima de
+   decoracion. Prohibido: bloques de color plano tras el texto, sombras, glows,
+   gradientes llamativos, esquinas muy redondeadas. */
+
+/* Playfair Display variable (rango 700-900), subset latin de Google Fonts (OFL).
+   Un solo archivo cubre ambos pesos porque la fuente es variable en el eje wght. */
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 700 900;
+  src: url("../../assets/fonts/playfair-display-700-900.woff2") format("woff2");
+}
+
+:root {
+  /* papel calido: el fondo de marca aclarado, como pagina impresa */
+  --ed-paper: color-mix(in srgb, var(--brand-bg) 82%, #ffffff);
+  --ed-ink: var(--brand-text);
+  --ed-ink-muted: color-mix(in srgb, var(--brand-text) 62%, var(--brand-bg));
+  --ed-hairline: color-mix(in srgb, var(--brand-text) 28%, var(--brand-bg));
+}
+
+.slide {
+  background: var(--ed-paper);
+}
+
+/* Filete de cabecera: recorre el ancho de la zona segura, como en una revista */
+.slide::before {
+  content: "";
+  position: absolute;
+  left: 80px;
+  right: 80px;
+  top: 48px;
+  border-top: 1px solid var(--ed-hairline);
+}
+
+/* La portada (hook) lleva filete Oxford: linea gruesa + fina, tinta plena */
+.slide--hook::before {
+  height: 7px;
+  border-top: 5px solid var(--ed-ink);
+  border-bottom: 1px solid var(--ed-ink);
+}
+
+/* Headline: serif display de alto contraste, apretado y con mucha presencia */
+.headline {
+  font-family: "Playfair Display", serif;
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -1px;
+  margin: 0;
+  color: var(--ed-ink);
+  text-wrap: balance;
+}
+
+.slide--hook .headline {
+  font-size: 88px;
+}
+
+.slide--context .headline,
+.slide--content .headline,
+.slide--example .headline,
+.slide--reveal .headline {
+  font-size: 68px;
+}
+
+.slide--cta .headline {
+  font-size: 84px;
+}
+
+.body-text {
+  font-size: 40px;
+  line-height: 1.55;
+  font-weight: 400;
+  margin: 0;
+  color: var(--ed-ink);
+}
+
+.body-text strong {
+  font-weight: 700;
+}
+
+/* Enfasis del headline: subrayado fino en el color primario, sin caja de color.
+   El trazo salta los descendentes (skip-ink), como un subrayado a pluma. */
+.marca {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--brand-primary);
+  text-decoration-thickness: 6px;
+  text-underline-offset: 16px;
+}
+
+/* Kicker de seccion: versalitas espaciadas precedidas de un filete corto primario */
+.badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-weight: 700;
+  font-size: 27px;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  color: var(--ed-ink);
+}
+
+.badge::before {
+  content: "";
+  display: inline-block;
+  width: 56px;
+  height: 4px;
+  background: var(--brand-primary);
+  margin-right: 22px;
+  vertical-align: 8px;
+}
+
+/* Pasaje destacado: parrafo entre filetes, sin fondo. Puro aire tipografico */
+.card {
+  border-top: 1px solid var(--ed-hairline);
+  border-bottom: 1px solid var(--ed-hairline);
+  padding: 48px 4px;
+  background: transparent;
+}
+
+/* Folio de capitulo: numeral serif en primario con filete que corre hasta el margen */
+.numero-paso {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  font-family: "Playfair Display", serif;
+  font-weight: 900;
+  font-size: 96px;
+  line-height: 1;
+  color: var(--brand-primary);
+}
+
+.numero-paso::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--ed-hairline);
+}
+
+/* Cita editorial: comillas serif gigantes en primario y atribucion en versalitas */
+.quote-card {
+  margin: 0;
+  padding: 0;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 48px;
+  line-height: 1.38;
+  color: var(--ed-ink);
+}
+
+.quote-card::before {
+  content: "\201C";
+  display: block;
+  font-weight: 900;
+  font-size: 150px;
+  line-height: 0.55;
+  height: 74px;
+  color: var(--brand-primary);
+}
+
+.quote-card footer {
+  margin-top: 40px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--ed-ink-muted);
+}
+
+.quote-card footer::before {
+  content: "\2014\00A0";
+  color: var(--brand-primary);
+}
+
+/* Boton CTA: bloque de tinta plena con base primaria, como un sello de imprenta */
+.cta-button {
+  display: inline-block;
+  align-self: center;
+  background: var(--ed-ink);
+  color: var(--ed-paper);
+  border-bottom: 8px solid var(--brand-primary);
+  padding: 34px 64px;
+  font-weight: 700;
+  font-size: 42px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+/* Cierre tipo colofon: todo centrado en el eje */
+.slide--cta {
+  text-align: center;
+  align-items: center;
+}
+
+.slide--cta .slide-footer {
+  align-self: stretch;
+}
+
+.slide--cta .badge {
+  align-self: center;
+}
+
+/* Indicador de deslizar: versalitas espaciadas en primario, sin pastilla */
+.swipe-hint {
+  font-weight: 700;
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--brand-primary);
+}
+
+/* Pie de pagina: filete + handle atenuado y folio serif como en revista */
+.slide-footer {
+  border-top: 1px solid var(--ed-hairline);
+  padding-top: 28px;
+}
+
+.footer-handle {
+  font-weight: 600;
+  font-size: 27px;
+  letter-spacing: 1px;
+  color: var(--ed-ink-muted);
+}
+
+.slide-number {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: 2px;
+  color: var(--ed-ink);
+}
+
+/* Separadores de espacio vertical entre bloques */
+.gap-md {
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.gap-lg {
+  height: 72px;
+  flex-shrink: 0;
+}
+
+/* ---- v2 REVISTA VIVA: tension visual que empuja a deslizar ----
+   Regla editorial: cada slide menos el ultimo lleva AL MENOS un elemento
+   inacabado o direccional (fuga, palabra cortada, flecha). El CTA es la
+   unica composicion cerrada del carrusel. */
+
+/* Las fugas cortan a sangre: el lienzo esconde lo que se sale */
+.slide {
+  overflow: hidden;
+}
+
+/* Italica editorial para frases narrativas en minuscula (portada poetica) */
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 700 900;
+  src: url("../../assets/fonts/playfair-display-italic-700-900.woff2") format("woff2");
+}
+
+.headline-italica {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 750;
+  font-size: 76px;
+  line-height: 1.12;
+  letter-spacing: 0;
+  margin: 0;
+  color: var(--ed-ink);
+  text-transform: lowercase;
+}
+
+/* Palabra display gigante de posts. Con .fuga-derecha se corta a sangre en el
+   borde derecho: la señal fisica de "esto continua en el siguiente slide".
+   La palabra debe medir mas que el ancho util (>=7 letras a 190px). */
+.palabra-display {
+  font-family: "Playfair Display", serif;
+  font-weight: 900;
+  font-size: 190px;
+  line-height: 0.98;
+  text-transform: uppercase;
+  letter-spacing: -4px;
+  color: var(--ed-ink);
+  white-space: nowrap;
+}
+
+.palabra-display--contorno {
+  color: transparent;
+  -webkit-text-stroke: 3px var(--brand-primary);
+}
+
+.fuga-derecha {
+  align-self: flex-start;
+  margin-right: -420px;
+}
+
+/* Foto en arco (siempre blanco y negro), portada del estilo de historias.
+   Con --fuga asoma cortada por el borde derecho. */
+.foto-arco {
+  width: 700px;
+  height: 600px;
+  border-radius: 350px 350px 0 0;
+  overflow: hidden;
+}
+
+.foto-arco img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+}
+
+.foto-arco--fuga {
+  align-self: flex-end;
+  margin-right: -300px;
+}
+
+/* Anotaciones de editor a mano. Los trazos son mascaras SVG rellenas con el
+   color primario de la marca (heredan --brand-primary automaticamente). */
+.subrayado-mano {
+  position: relative;
+}
+
+.subrayado-mano::after {
+  content: "";
+  position: absolute;
+  left: -8px;
+  right: -8px;
+  bottom: -16px;
+  height: 24px;
+  background: var(--brand-primary);
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 14 C60 5 122 21 172 12 S272 7 296 14" fill="none" stroke="black" stroke-width="7" stroke-linecap="round"/></svg>') center / 100% 100% no-repeat;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 14 C60 5 122 21 172 12 S272 7 296 14" fill="none" stroke="black" stroke-width="7" stroke-linecap="round"/></svg>') center / 100% 100% no-repeat;
+}
+
+.circulo-mano {
+  position: relative;
+  display: inline-block;
+}
+
+.circulo-mano::after {
+  content: "";
+  position: absolute;
+  inset: -20px -38px;
+  background: var(--brand-primary);
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 140" preserveAspectRatio="none"><path d="M160 10 C258 12 310 42 308 72 C306 106 238 130 158 130 C78 130 14 106 12 70 C10 38 72 14 196 12" fill="none" stroke="black" stroke-width="6" stroke-linecap="round"/></svg>') center / 100% 100% no-repeat;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 140" preserveAspectRatio="none"><path d="M160 10 C258 12 310 42 308 72 C306 106 238 130 158 130 C78 130 14 106 12 70 C10 38 72 14 196 12" fill="none" stroke="black" stroke-width="6" stroke-linecap="round"/></svg>') center / 100% 100% no-repeat;
+}
+
+.flecha-mano {
+  align-self: flex-end;
+  width: 210px;
+  height: 72px;
+  flex-shrink: 0;
+  background: var(--brand-primary);
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 70" preserveAspectRatio="none"><path d="M6 52 C58 20 128 18 184 38 M184 38 l-26 -17 M184 38 l-29 10" fill="none" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>') center / 100% 100% no-repeat;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 70" preserveAspectRatio="none"><path d="M6 52 C58 20 128 18 184 38 M184 38 l-26 -17 M184 38 l-29 10" fill="none" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>') center / 100% 100% no-repeat;
+}
+
+/* Cinta adhesiva de collage sobre fotos o pasajes */
+.cinta {
+  position: relative;
+}
+
+.cinta::before {
+  content: "";
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  width: 230px;
+  height: 56px;
+  transform: translateX(-50%) rotate(-4deg);
+  background: color-mix(in srgb, var(--brand-primary) 14%, #f0e9da);
+  opacity: 0.88;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+/* Kicker rotado levemente: energia de sello puesto a mano */
+.badge--rotada {
+  transform: rotate(-2deg);
+  transform-origin: left bottom;
+}

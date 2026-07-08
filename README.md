@@ -11,7 +11,8 @@ caption incluidos.
 1. Le pides un carrusel sobre cualquier tema: `hazme un carrusel sobre agentes de IA`
 2. Claude genera el guion con estructura viral (hook, desarrollo, CTA) usando
    frameworks probados (AIDA, 13 tipos de hook).
-3. Diseña cada slide en HTML con uno de los 5 estilos incluidos.
+3. Diseña cada slide en HTML con uno de los 6 estilos incluidos (y tambien hace
+   historias 9:16).
 4. Los renderiza a PNG de alta resolucion con tu marca (colores, handle).
 5. Te escribe el caption con hashtags.
 
@@ -61,7 +62,7 @@ hazme un carrusel sobre [tu tema]
 
 4. Los PNGs aparecen en `output/FECHA-tema/png/`, junto al caption listo para copiar.
 
-## Los 5 estilos incluidos
+## Los 6 estilos de publicacion
 
 | Estilo | Cuando usarlo |
 |---|---|
@@ -70,9 +71,18 @@ hazme un carrusel sobre [tu tema]
 | `gradient-mesh` | Vision, futuro, contenido aspiracional |
 | `bento-grid` | Listas, comparativas, features |
 | `neumorphism` | Calma, procesos, bienestar |
+| `editorial` | Historias personales, opinion con peso, autoridad |
 
 Pide el que quieras: `hazme un carrusel sobre X con estilo liquid-glass`. Si no dices
 nada, usa el de `estilo_por_defecto` en tu `brand.json`.
+
+## Y ademas: historias (9:16)
+
+Pide `hazme historias sobre X` y genera la secuencia vertical de Stories
+(1080x1920) con dos estilos propios: `historia-cinematica` (oscuro, con foto de
+fondo opcional) e `historia-editorial` (revista clara). Si quieres tus fotos de
+fondo, dejalas en la carpeta `img/` del carrusel y el template las coloca con el
+tratamiento del estilo.
 
 ## Solucion de problemas
 

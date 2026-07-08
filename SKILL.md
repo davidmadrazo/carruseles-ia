@@ -160,11 +160,29 @@ Checklist de validacion del guion (pasarla antes de escribir HTML):
 | `gradient-mesh` | Vision, futuro, contenido aspiracional |
 | `bento-grid` | Listas, comparativas, features |
 | `neumorphism` | Calma, procesos, bienestar |
+| `editorial` | Historias personales, opinion con peso, autoridad |
 
 Usar `estilo_por_defecto` de brand.json salvo que el usuario pida otra cosa o el tema
 encaje claramente mejor con otro estilo (proponerlo en ese caso). Cada estilo tiene su
 `layouts.md` con snippets propios: leer SIEMPRE el del estilo elegido, no asumir que
 son iguales (la tipografia y la estructura cambian entre sistemas).
+
+## Formato historias (9:16)
+
+Si el usuario pide "historias" en vez de un post, el carrusel es una secuencia
+vertical de Stories (lienzo 1080x1920):
+
+- Los slides enlazan `templates/base-historia.css` en vez de `base.css`, mas el
+  estilo de historia elegido: `historia-cinematica` (oscuro cinematografico; admite
+  foto de fondo con `<img class="bg-image">` como primer hijo de la section) o
+  `historia-editorial` (revista clara y elegante).
+- Estructura recomendada: 6-8 pantallas — gancho, problema, giro, solucion, prueba y
+  cierre con CTA. UNA idea y ~15 palabras maximo por pantalla, con una palabra
+  protagonista en `.palabra-golpe`.
+- Leer SIEMPRE el `layouts.md` del estilo de historia elegido (los snippets y
+  tamaños cambian respecto a los posts).
+- El render es el mismo: `node scripts/render.js <carpeta>` detecta el lienzo solo.
+  Las zonas seguras de la UI de Instagram ya las reserva el template.
 
 ## Paso 3: construir los HTML
 
