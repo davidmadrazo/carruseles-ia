@@ -30,9 +30,16 @@ output/2026-07-08-agentes-ia/
 
 ## Paso 0: marca
 
-Leer `brand.json` en la raiz. Si `nombre` es "Tu Nombre" u otro placeholder, preguntar
-al usuario (una sola vez): nombre o marca, handle de Instagram, 2 colores principales
-(o proponer una paleta), y guardar sus respuestas en `brand.json` antes de continuar.
+Leer `brand.json` en la raiz. Si `nombre` es "Tu Nombre" u otro placeholder, hacer
+el onboarding UNA sola vez, conversacional y corto:
+
+1. "¿Como te llamas o como se llama tu marca?"
+2. "¿Cual es tu handle de Instagram?"
+3. "¿Tienes 2 colores de marca? Si no, dime tu sector y te propongo una paleta."
+4. "¿A que te dedicas y a quien ayudas?" (guardar en `tono` una frase que lo capture)
+
+Guardar las respuestas en `brand.json` antes de continuar. En usos siguientes no
+volver a preguntar.
 
 `brand.css` se genera desde `brand.json` con este formato exacto:
 
@@ -46,13 +53,12 @@ al usuario (una sola vez): nombre o marca, handle de Instagram, 2 colores princi
 }
 ```
 
-Regla de contraste: si `--brand-primary` es un color oscuro, `--brand-on-primary`
-debe ser blanco; si es claro, casi negro. Comprobar mentalmente el contraste antes
-de escribir el archivo.
+Regla de contraste: si `--brand-primary` es oscuro, `--brand-on-primary` debe ser
+blanco; si es claro, casi negro. Comprobar el contraste antes de escribir el archivo.
 
 ## Paso 1: guion (contenido.json)
 
-Estructura obligatoria del carrusel (6-12 slides):
+### Estructura obligatoria (6-12 slides)
 
 | Posicion | Rol | Funcion |
 |---|---|---|
@@ -62,33 +68,73 @@ Estructura obligatoria del carrusel (6-12 slides):
 | Penultimo | `example` o `reveal` | Caso practico, prueba o giro. |
 | Ultimo | `cta` | Llamada a la accion clara. |
 
-Reglas de texto:
+### Reglas de texto
+
 - Headline: 6-10 palabras maximo. Directo, sin rodeos.
 - Body: 20-60 palabras. Frases cortas. Una idea.
 - Español natural de España. Nada de traducciones literales del ingles ni frases de IA
-  ("en el mundo actual", "sumergete", "descubre el poder de").
+  ("en el mundo actual", "sumergete", "descubre el poder de", "revoluciona", "eleva").
 - Ortografia perfecta en el texto visible: tildes, eñes y signos de apertura (¿ ¡).
+- Cifras concretas siempre que existan: "40K en 90 dias" gana a "muchos resultados".
 
-Tipos de hook para el slide 1 (elegir segun el tema):
+### Los 13 tipos de hook (elegir 1 para el slide 1)
 
-| Hook | Cuando usarlo | Ejemplo |
+| Hook | Cuando usarlo | Ejemplo de headline |
 |---|---|---|
-| Regla de tres | Listas, consejos, errores | "3 errores que matan tu negocio (el tercero duele)" |
-| Open loop | Historias con giro | "Esta automatizacion me hizo 40K el mes pasado, pero nadie ve el detalle" |
-| Enemigo comun | Posicionamiento, B2B | "Las agencias te cobran 5K por lo que la IA hace en 10 minutos" |
-| Pregunta inducida | Educativo, autoridad | "¿Cuanto crees que cuesta un agente IA? Menos que tu cafe diario" |
-| Resultados | Pruebas, casos reales | "De 8K a 38K al mes en 90 dias. Aqui estan los numeros" |
+| `regla_de_tres` | Listas, consejos, errores | "3 errores que matan tu negocio (el tercero duele)" |
+| `reto` | Desafiar al ego, comunidad | "Apuesto a que no montas esto en 7 dias" |
+| `oyo` (open loop) | Historias con giro, deja algo sin resolver | "Esta automatizacion me hizo 40K, pero nadie ve el detalle" |
+| `culo` (impacto visual) | Cifras o pruebas en pantalla | "100.000€ en Stripe. Asi se ve por dentro" |
+| `cotilla` | Noticias de empresas/personas conocidas | "OpenAI acaba de hacer esto y nadie lo cuenta en español" |
+| `pregunta_inducida` | Educativo, contraste esperado vs real | "¿Cuanto crees que cuesta un agente IA?" |
+| `enemigo_comun` | Posicionamiento, B2B | "Las agencias te cobran 5K por lo que la IA hace en 10 minutos" |
+| `accionador` | Tutorial, solucion rapida | "Si tu WhatsApp esta atascado, prueba esto antes de pagar" |
+| `regla_del_2` | Controversia, identidad | "Si publicas cada dia y no creces, eres uno de estos 2" |
+| `si_tu` | Escenario hipotetico, inspiracional | "Si empezaras de cero con 1000€, harias estas 3 cosas" |
+| `pregunta_incomoda` | Tabu, provocacion | "¿Cuanto facturas de verdad? El 90% se miente" |
+| `objeto_magico` | Herramienta = resultado deseado | "Esta herramienta va a matar a 3 SaaS de 10M" |
+| `resultados` | Autoridad, prueba social | "De 8K a 38K al mes en 90 dias. Los numeros" |
 
-Framework narrativo por defecto: AIDA (Attention = hook, Interest = context,
-Desire = content/example, Action = cta).
+### Frameworks narrativos
 
-Formato de `contenido.json`:
+- **AIDA** (por defecto en carruseles): Attention = hook, Interest = context,
+  Desire = content/example (pintar el resultado deseado), Action = cta.
+- **PAS** (alternativa B2B/ventas): Problem = hook+context, Agitation = amplificar
+  consecuencias en los slides centrales, Solution = reveal+cta.
+- **Open loop + bookending** (transversal, combinable con ambos): el slide 1 abre una
+  pregunta que NO se responde hasta el penultimo slide, y el ultimo slide conecta con
+  el primero. Fuerza a deslizar hasta el final y a releer.
+
+### Que premia el algoritmo (2026) y como se traduce a slides
+
+- **Shares** es la señal numero 1: cada carrusel necesita al menos un slide
+  "atomicamente compartible" (una idea tan redonda que se envia tras una sola lectura;
+  suele ser el reveal o un content con cifra fuerte).
+- **Comments**: el CTA con palabra clave ("comenta X y te mando...") o pregunta
+  inducida los dispara.
+- **Saves**: los carruseles-lista ("guardate esto") los generan solos; no sacrificar
+  shares por saves.
+- **Retention**: en carrusel = % que llega al ultimo slide. Cada slide debe abrir una
+  micro-curiosidad hacia el siguiente (re-hooking): terminar body con tension, no con
+  conclusion cerrada, salvo el ultimo.
+
+### Storytelling (cuando el carrusel cuenta una experiencia)
+
+- Zoom en el momento: describir el instante concreto, no la generalidad.
+- Stakes: decir que habia en juego.
+- Mostrar emociones fisicamente ("me temblaba la mano al enviar el presupuesto").
+- Mostrar transformacion: el delta antes/despues es lo que se retiene.
+- Villano: toda historia necesita antagonista (persona, idea o tendencia).
+- No usar la palabra "historia"; decir "experiencia" o "ejemplo".
+
+### Formato de contenido.json
 
 ```json
 {
   "titulo": "...",
   "tema": "...",
   "hook_tipo": "enemigo_comun",
+  "framework": "aida",
   "estilo": "neobrutalism",
   "slides": [
     { "numero": 1, "rol": "hook", "headline": "...", "body": null },
@@ -96,6 +142,14 @@ Formato de `contenido.json`:
   ]
 }
 ```
+
+Checklist de validacion del guion (pasarla antes de escribir HTML):
+- ¿El headline del slide 1 funciona sin contexto y en miniatura?
+- ¿Cada slide tiene UNA sola idea?
+- ¿Hay al menos un slide compartible por si solo?
+- ¿El penultimo entrega la promesa del hook?
+- ¿El CTA pide UNA accion concreta con beneficio?
+- ¿Numero de palabras dentro de limites en todos los slides?
 
 ## Paso 2: elegir design system
 
@@ -107,8 +161,9 @@ Usar `estilo_por_defecto` de brand.json salvo que el usuario pida otra cosa.
 Claude escribe el HTML final de cada slide directamente. No hay motor de plantillas.
 
 1. Leer `templates/<estilo>/layouts.md` y copiar el snippet del rol correspondiente.
-2. Adaptar el contenido del guion al snippet. Resaltar 1-2 palabras clave del headline
-   con `<span class="marca">`.
+2. Adaptar el contenido del guion al snippet. Resaltar 1-2 grupos de palabras clave
+   del headline con `<span class="marca">` (si el headline termina en signo de
+   puntuacion, incluirlo dentro del span).
 3. Cada slide enlaza tres CSS en este orden: `templates/base.css`,
    `templates/<estilo>/styles.css`, `../brand.css` (rutas relativas desde
    `output/<carpeta>/slides/`).
@@ -120,6 +175,8 @@ Reglas duras (no negociables):
 - Footer en todos los slides: handle + numero o hint "Desliza".
 - Ultimo slide sin "Desliza".
 - Si un texto no cabe, se acorta el texto, no se encoge la fuente por debajo del minimo.
+- Palabras muy largas ("COMPETENCIA", "AUTOMATIZACION") fuerzan cortes feos en
+  headlines grandes: preferir sinonimos cortos o aceptar el corte solo si queda limpio.
 
 ## Paso 4: renderizar
 
@@ -139,8 +196,10 @@ Errores comunes:
 
 1. Abrir 2-3 PNGs (con la herramienta Read) y verificar: texto completo sin cortes,
    contraste legible, ortografia, coherencia hook -> cta.
-2. Escribir `caption.md`:
-   - Primera linea = gancho que funcione cortado (se ve en el feed).
-   - 125-150 caracteres en total para la parte visible.
-   - CTA que repita la del ultimo slide.
+2. Escribir `caption.md` con estas reglas:
+   - Primera linea = gancho que funcione cortado (es lo unico visible en el feed).
+   - Parte visible: 125-150 caracteres con hook + CTA.
+   - CTA que repita la del ultimo slide (misma palabra clave).
+   - Pregunta inducida al final para disparar comentarios.
    - 3-5 hashtags del nicho, no genericos.
+3. Enseñar al usuario los PNGs y ofrecer UNA ronda de ajustes concretos.
